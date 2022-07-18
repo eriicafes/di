@@ -1,0 +1,42 @@
+{
+  "name": "@eriicafes/di",
+  "version": "0.1.0",
+  "description": "A simple and lightweight Dependency Injection container for TypeScript 📦",
+  "main": "lib/index.js",
+  "files": [
+    "lib/index.js"
+  ],
+  "scripts": {
+    "test": "jest",
+    "prebuild": "rimraf lib",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eriicafes/di.git"
+  },
+  "keywords": [
+    "di",
+    "dependency injection",
+    "ioc",
+    "inversion of control",
+    "container",
+    "typescript"
+  ],
+  "author": "eriicafes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eriicafes/di/issues"
+  },
+  "homepage": "https://github.com/eriicafes/di#readme",
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
