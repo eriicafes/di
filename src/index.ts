@@ -1,8 +1,13 @@
-import "reflect-metadata"
-import { InstanceCache, TokenCache } from "./cache"
-import { Scope } from "./constants"
-import { Dependencies, FactoryTarget, InstanceMeta, RegisterToken, Target, TokenIdentifier } from "./types"
-import { arrayIncludes } from "./utils"
+import { InstanceCache, TokenCache } from "./cache";
+import { Scope } from "./constants";
+import { Dependencies, FactoryTarget, InstanceMeta, RegisterToken, Target, TokenIdentifier } from "./types";
+import { arrayIncludes } from "./utils";
+
+if (typeof Reflect === "undefined" || !Reflect.getMetadata) {
+    throw new Error(
+        `@eriicafes/di requires a reflect polyfill, please add 'import "reflect-metadata"' to the top of your entry point.`
+    );
+}
 
 /**
  * DI Container class
@@ -197,7 +202,7 @@ export class DIContainer {
  */
 export const container = new DIContainer()
 
-export { Scope } from "./constants"
-export * from "./decorators"
-export * from "./types"
+export { Scope } from "./constants";
+export * from "./decorators";
+export * from "./types";
 
