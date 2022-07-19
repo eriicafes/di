@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/eriicafes/di/compare/v0.1.3...v0.1.4) (2022-07-19)
+
+
+### Bug Fixes
+
+* specify files in package.json to reduce bundle size ([62f4db5](https://github.com/eriicafes/di/commit/62f4db5a2f9c9483e12e8474d2b79a716bec548e))
+
 ### [0.1.3](https://github.com/eriicafes/di/compare/v0.1.2...v0.1.3) (2022-07-19)
 
 
