@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "A simple and lightweight Dependency Injection container for TypeScript 📦",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/index.js"
   ],
