@@ -1,63 +1,63 @@
-import "reflect-metadata"
-import { DIContainer, Injectable } from "../src"
+import "reflect-metadata";
+import { DIContainer, Injectable } from "../src";
 
 describe("child container", () => {
-    interface Human {
-        breathe(): string,
+  interface Human {
+    breathe(): string;
+  }
+  const Human = Symbol("Human");
+
+  interface Vehicle {
+    move(): string;
+  }
+  const Vehicle = Symbol("Vehicle");
+
+  @Injectable()
+  class Man implements Human {
+    public breathe(): string {
+      return "breathing";
     }
-    const Human = Symbol("Human")
+  }
 
-    interface Vehicle {
-        move(): string,
+  @Injectable()
+  class Car implements Vehicle {
+    public move(): string {
+      return "moving";
     }
-    const Vehicle = Symbol("Vehicle")
+  }
 
-    @Injectable()
-    class Man implements Human {
-        public breathe(): string {
-            return "breathing"
-        }
-    }
+  let container: DIContainer;
+  let childContainer: DIContainer;
 
-    @Injectable()
-    class Car implements Vehicle {
-        public move(): string {
-            return "moving"
-        }
-    }
+  beforeAll(() => {
+    container = new DIContainer();
 
-    let container: DIContainer
-    let childContainer: DIContainer
+    container.registerTokens([
+      {
+        identifier: Human,
+        target: Man,
+      },
+    ]);
 
-    beforeAll(() => {
-        container = new DIContainer()
+    childContainer = container.createChildContainer("ChildContainer");
 
-        container.registerTokens([
-            {
-                identifier: Human,
-                target: Man
-            }
-        ])
+    childContainer.registerTokens([
+      {
+        identifier: Vehicle,
+        target: Car,
+      },
+    ]);
+  });
 
-        childContainer = container.createChildContainer("ChildContainer")
+  it("should resolve token registered on a parent container", () => {
+    const human = childContainer.resolve<Human>(Human);
 
-        childContainer.registerTokens([
-            {
-                identifier: Vehicle,
-                target: Car
-            }
-        ])
-    })
+    expect(human).toBeTruthy();
+  });
 
-    it("should resolve token registered on a parent container", () => {
-        const human = childContainer.resolve<Human>(Human)
-
-        expect(human).toBeTruthy()
-    })
-
-    it("should throw error when resolving a token registered only on a child container", () => {
-        expect(() => {
-            container.resolve<Vehicle>(Vehicle)
-        }).toThrow()
-    })
-})
+  it("should throw error when resolving a token registered only on a child container", () => {
+    expect(() => {
+      container.resolve<Vehicle>(Vehicle);
+    }).toThrow();
+  });
+});
