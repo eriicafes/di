@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/eriicafes/di/compare/v0.1.1...v0.1.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* export types from package.json ([8bc017f](https://github.com/eriicafes/di/commit/8bc017f7924532565d2ff1aa860d8b506d27ff12))
+
 ### 0.1.1 (2022-07-19)
 
 
