@@ -69,7 +69,7 @@ export class DIContainer {
                 identifier: token.identifier,
                 target: {
                     key: token.identifier,
-                    scope: token.scope,
+                    scope: token.scope || Scope.Singleton,
                     factory: token.factory
                 }
             })

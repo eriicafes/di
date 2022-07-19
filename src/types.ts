@@ -18,6 +18,6 @@ export type Resolver = <T>(target: symbol | Target<T>) => T
 
 export type RegisterToken<T = any> =
     | { identifier: TokenIdentifier, target: Target<T>, factory?: never, scope?: never }
-    | { identifier: TokenIdentifier, target?: never, factory: (resolve: Resolver) => T, scope: Scope }
+    | { identifier: TokenIdentifier, target?: never, factory: (resolve: Resolver) => T, scope?: Scope }
 
 export type Dependencies = (Target | TokenIdentifier)[]
