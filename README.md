@@ -1,4 +1,4 @@
-# Dependency Injection (di)
+# DI
 
 A simple and lightweight Dependency Injection container for TypeScript 📦
 
@@ -35,7 +35,7 @@ Install [reflect-metadata](https://www.npmjs.com/package/reflect-metadata):
 npm install reflect-metadata
 ```
 
-Import Reflect polyfill once at the top of the entry file for ur project:
+Import Reflect polyfill once at the top of the entry file for your project:
 
 ```typescript
 // index.ts
@@ -48,7 +48,7 @@ For other polyfills asides reflect-metadata, you may need to follow guidelines t
 
 ## Usage/Examples
 
-Dependency Injection is performed on the constructors of decorated classes [Constructor Injection](https://en.wikipedia.org/wiki/Dependency_injection#Constructor_injection)
+Dependency Injection is performed on the constructors of decorated classes using [Constructor Injection](https://en.wikipedia.org/wiki/Dependency_injection#Constructor_injection)
 
 ### Decorators
 
@@ -57,18 +57,23 @@ Dependency Injection is performed on the constructors of decorated classes [Cons
 Class decorator factory that allows classes to be injected to the `DIContainer`.
 
 ```typescript
-import { Injectable } from "@eriicafes/di";
+import { Injectable, Scope } from "@eriicafes/di";
 
 @Injectable()
 class Foo {
   constructor(private bar: Bar) {}
+}
+
+@Injectable(Scope.Transient) // control injection scope
+class Bar {
+  constructor(private baz: Baz) {}
 }
 ```
 
 #### @Singleton()
 
 Wraps around @Injectable() to inject class as singleton.
-By default @Injectable() also injects class as singleton so these two decorators are identical, while this may be more explicit.
+By default @Injectable() also injects class as singleton so these two decorators are identical, however using this may be more explicit.
 
 ```typescript
 import { Singleton } from "@eriicafes/di";
@@ -110,7 +115,7 @@ class Foo {
 
 #### @Inject()
 
-Constructor parameter decorator factory that allows for injecting interfaces, indirect classes or factories to a class.
+Constructor parameter decorator factory that allows for injecting interfaces, factories or indirect classes to a class.
 
 ```typescript
 import { container, Inject, Injectable } from "@erricafes/di";
@@ -151,8 +156,9 @@ class Human {
 ```
 
 In the example above, the `Animal` interface has a concrete implementation which is the `Bird` class,
-the binding is registered in the container using a javascript symbol as the token and the `Bird` class as the target.
-NOTE here that the both Animal symbol and the Animal interface use the same name, this does not cause any conflicts in typescript ans should be the convention when binding interfaces to their concrete implementations.
+the binding is registered in the container using a javascript `Symbol` as the token and the `Bird` class as the target.
+
+NOTE here that both the `Animal` symbol and the `Animal` interface have the same name, this does not cause any conflicts in typescript and should be the convention when binding interfaces to their concrete implementations.
 
 ### Scopes
 
@@ -168,17 +174,17 @@ Scopes determine the lifetime of instances.
   - resolve from a parent or child container will return a different instance
 
 - **Transient**
-  - each resolve will return the new instance
+  - each resolve will return a new instance
 
 ### Container
 
-The `DIContainer` stores instances of injectables so they can be resolved later and in a clean way.
+The `DIContainer` stores instances of injectables so they can be resolved later and have their dependencies wired in a clean way.
 The container recursively resolves classes and their dependencies and caches when applicable.
 Dependencies in constructor parameters can be automatically resolved as long as they are injectable classes, for interfaces and factories the @Inject() decorator is required.
 
 Injectable classes are classes that fit any of the categories below:
 
-- have zero constructor parameters, **decorator not required** (maybe classes from external libraries)
+- have zero constructor parameters, **decorator not required** (may be classes from external libraries)
 - have only injectable constructor parameters, **decorator required**
 
 NOTE: classes that have dependencies in their constructors must be decorated as injectable.
@@ -200,7 +206,7 @@ const newContainer = new DIContainer("NewContainer");
 #### Token Registration
 
 While concrete classes do not require registration,
-**interfaces**, **factories** and **indirect classes** require an explicit registration to bind tokens to their concrete implementation so they can be used with the @Inject() decorator
+**interfaces**, **factories** and **indirect classes** require an explicit registration to bind tokens to their concrete implementations so they can be used with the @Inject() decorator
 
 **_factories:_**
 
@@ -275,7 +281,7 @@ class X {
 
 #### Resolution
 
-Resolve instances from the container, the container will recursively resolve the token beign resolved.
+Resolve instances from the container, the container will recursively resolve the class or token and it's dependencies.
 
 ```typescript
 // Foo is a class
@@ -290,14 +296,14 @@ const bar = container.resolve<IBar>(BarToken);
 Create child containers to create a tree of related containers that may share token registrations along the chain
 
 ```typescript
-import { DIContainer } from ".";
+import { DIContainer } from "@eriicafes/di";
 
 const parentContainer = new DIContainer("ParentContainer");
 const container = parentContainer.createChildContainer("Container");
-const childContainer = parentContainer.createChildContainer("ChildContainer");
+const childContainer = container.createChildContainer("ChildContainer");
 ```
 
-Here children containers can use tokens registered in their parent containers
+Here child containers can resolve tokens registered in their parent containers
 
 ## Contributing
 
