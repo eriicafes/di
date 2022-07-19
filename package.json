@@ -1,6 +1,6 @@
 {
   "name": "@eriicafes/di",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple and lightweight Dependency Injection container for TypeScript 📦",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
