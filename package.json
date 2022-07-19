@@ -4,9 +4,6 @@
   "description": "A simple and lightweight Dependency Injection container for TypeScript 📦",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib/index.js"
-  ],
   "scripts": {
     "test": "jest",
     "prebuild": "rimraf lib",
