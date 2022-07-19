@@ -38,7 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@eriicafes/reflow": "^1.0.0",
+    "@eriicafes/reflow": "^1.0.1",
     "@types/jest": "^28.1.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
